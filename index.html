@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Memoria</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Estilos para el modal */
+    #videoModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    #videoContainer {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+    }
+    #closeBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    /* Botón de cambio de idioma */
+    #toggleLang {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Botón para cambiar idioma -->
+  <button id="toggleLang">Change to English</button>
+  
+  <div id="wrapper">
+    <div id="score"></div>
+    <div id="turn"></div>
+    <div id="game"></div>
+  </div>
+
+  <!-- Modal para mostrar el video -->
+  <div id="videoModal">
+    <div id="videoContainer">
+      <button id="closeBtn">X</button>
+      <h1 id="winnerText"></h1>
+      <video id="victoryVideo" controls>
+        <source id="videoSource" src="" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+      </video>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Variable para controlar el idioma (true para español, false para inglés)
+    let isSpanish = true;
+
+    function toggleLanguage() {
+      // Cambia el estado del idioma
+      isSpanish = !isSpanish;
+
+      // Cambiar el texto del botón
+      document.getElementById("toggleLang").innerText = isSpanish ? "Change to English" : "Cambiar a Español";
+
+      // Cambiar el título de la página
+      document.title = isSpanish ? "Juego de Memoria" : "Memory Game";
+
+      // Si hubiera otros textos en el documento, se podrían cambiar aquí.
+      // Ejemplo: cambiar el mensaje de error del video
+      const videoElem = document.getElementById("victoryVideo");
+      if(videoElem) {
+        videoElem.innerHTML = isSpanish ?
+          'Tu navegador no soporta el elemento de video.' :
+          'Your browser does not support the video element.';
+      }
+      
+      // Actualiza la función de mostrar video de victoria
+      // Nota: Se actualizan los textos del modal dependiendo del ganador
+      window.showVictoryVideo = function(winner) {
+        let videoModal = document.getElementById("videoModal");
+        let videoSource = document.getElementById("videoSource");
+        let winnerText = document.getElementById("winnerText");
+
+        if (winner === "zacapoaxtla") {
+          videoSource.src = "video/victoria2.mp4";
+          winnerText.innerText = isSpanish ? "¡Felicidades, Soldado Zacapoaxtla ha ganado!" : "Congratulations, Soldier Zacapoaxtla has won!";
+        } else if (winner === "zuavo") {
+          videoSource.src = "video/zuavo.mp4";
+          winnerText.innerText = isSpanish ? "¡Felicidades, Soldado Zuavo ha ganado!" : "Congratulations, Soldier Zuavo has won!";
+        }
+
+        let video = document.getElementById("victoryVideo");
+        video.load();
+        video.play();
+        videoModal.style.display = "flex";
+      }
+    }
+
+    // Asignar el evento al botón de cambio de idioma
+    document.getElementById("toggleLang").addEventListener("click", toggleLanguage);
+
+    document.getElementById("closeBtn").addEventListener("click", function() {
+      document.getElementById("videoModal").style.display = "none";
+      let video = document.getElementById("victoryVideo");
+      video.pause();
+    });
+
+    // Para probar, llama a esta función manualmente en la consola:
+    // showVictoryVideo("zacapoaxtla");
+    // showVictoryVideo("zuavo");
+  </script>
+</body>
+</html>

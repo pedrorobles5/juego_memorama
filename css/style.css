@@ -1,0 +1,122 @@
+body {
+   margin: 0;
+   background: black;
+   overflow-x: hidden;
+}
+
+#wrapper {
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+}
+
+#scoreBoard {
+   position: absolute;
+   top: 5px;
+   z-index: 5;
+   width: 100%;
+   text-align: center;
+   background: rgba(0, 0, 0, 0.7);
+   color: white;
+   padding: 5px;
+   font-size: 1.5rem;
+   border-radius: 10px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+#wrapper {
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+   text-align: center;
+}
+#score {
+   background: rgba(0, 0, 0, 0.8);
+   color: white;
+   padding: 10px 20px;
+   border-radius: 10px;
+   font-size: 1.5rem;
+   display: flex;
+   justify-content: space-around;
+   width: 50%;
+}
+
+#game {
+   display: grid;
+   grid-template-columns: repeat(8, 1fr); /* 8 columnas */
+   grid-gap: 20px;
+   width: 80%;
+   max-width: 900px;
+   margin: auto;
+   justify-content: center;
+   align-items: center;
+}
+
+.card {
+   width: 120px;
+   height: 180px;
+   position: relative;
+   transform-style: preserve-3d;
+   transition: transform 0.5s;
+   margin: 10px;
+}
+
+.card.active {
+   transform: rotateY(180deg);
+}
+
+.card div {
+   width: 100%;
+   height: 100%;
+   border-radius: 1rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+   backface-visibility: hidden;
+   text-align: center;
+   font-size: 1rem;
+   padding: 10px;
+}
+
+.card .face {
+   background: #05d1fe;
+   transform: rotateY(180deg);
+   color: black;
+   font-size: 1rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.card .face img {
+   width: 100%;
+   height: auto;
+   border-radius: 10px;
+}
+
+.card .back {
+   border: 3px solid #05d1fe;
+   background: url(../images/back.png) center / cover no-repeat;
+   transform: rotateY(0deg);
+}
+
+button {
+   background-color: #05d1fe;
+   color: white;
+   padding: 10px 20px;
+   font-size: 1rem;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background-color 0.3s;
+   margin-top: 20px;
+}
+
+button:hover {
+   background-color: #03b2cc;
+}
+
